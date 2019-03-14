@@ -1,0 +1,90 @@
+/* In the first tutorial, you set the basic styles for the entire application in styles.css.
+That stylesheet did not include styles for this list of heroes.
+One option is to add more styles to styles.css and keep growing that stylesheet as you add
+components.
+Or instead define private styles for a specific component and keep everything a component needs-
+the code, the HTML, and the CSS -together in one place. This approach makes it easier to
+re-use the component somewhere else and deliver the component's intended appearance even if
+the global styles are different.
+You define private styles either inline in the @Component.styles array or as stylesheet file(s)
+identified in the @Component.styleUrls array.
+When the CLI generated the HeroesComponent, it created an empty heroes.component.css stylesheet
+for the HeroesComponent and pointed to it in @Component.styleUrls
+(i.e. src/app/heroes/heroes.component.ts (@Component))
+Styles and stylesheets identified in @Component metadata are scoped to that specific component.
+The heroes.component.css styles apply only to the HeroesComponent and don't affect the outer
+HTML or the HTML in any other component. */
+
+/* HeroesComponent's private CSS styles */
+.heroes {
+    margin: 0 0 2em 0;
+    list-style-type: none;
+    padding: 0;
+    width: 15em;
+}
+.heroes li {
+    position: relative;
+    cursor: pointer;
+    left: 0;
+    background-color: #EEE;
+    margin: .5em;
+    padding: .3em 0;
+    height: 1.6em;
+    border-radius: 4px;
+}
+.heroes li:hover {
+    color: #607D8B;
+    background-color: #DDD;
+    left: .1em;
+}
+
+.heroes a {
+    color: #888;
+    text-decoration: none;
+    position: relative;
+    display: block;
+    width: 250px;
+}
+
+.heroes a:hover {
+    color:#607D8B;
+}
+
+.heroes .badge {
+    display: inline-block;
+    font-size: small;
+    color: white;
+    padding: 0.8em 0.7em 0 0.7em;
+    background-color: #607D8B;
+    line-height: 1em;
+    position: relative;
+    left: -1px;
+    top: -4px;
+    height: 1.8em;
+    min-width: 16px;
+    text-align: right;
+    margin-right: .8em;
+    border-radius: 4px 0 0 4px;
+}
+
+button {
+    background-color: #eee;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    cursor: hand;
+    font-family: Arial;
+}
+
+button:hover {
+    background-color: #cfd8dc;
+}
+
+button.delete {
+    position: relative;
+    left: 194px;
+    top: -32px;
+    background-color: gray !important;
+    color: white;
+}

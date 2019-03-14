@@ -1,0 +1,26 @@
+<!-- 
+Text box and a list of matching search results like this. 
+As the user types in the search box, an input event binding calls the component's search()
+method with the new search box value.
+
+AsyncPipe
+As expected, the *ngFor repeats hero objects.
+...*ngFor iterates over a list called heroes$, not heroes.
+The $ is a convention that indicates heroes$ is an Observable, not an array.
+The *ngFor can't do anything with an Observable. But there's also a pipe character (|)
+followed by async, which identifies Angular's AsyncPipe.
+The AsyncPipe subscribes to an Observable automatically so you won't have to do so in the component class.
+-->
+<div id="search-component">
+  <h4>Hero Search</h4>
+
+  <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+
+  <ul class="search-result">
+    <li *ngFor="let hero of heroes$ | async">
+      <a routerLink="/detail/{{hero.id}}">
+        {{hero.name}}
+      </a>
+    </li>
+  </ul>
+</div>

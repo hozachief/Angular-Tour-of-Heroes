@@ -1,0 +1,106 @@
+<!-- 
+HTML unordered list (<ul>)
+<li> displays properties of a hero
+Sprinkled in some CSS classes for styling.
+
+*ngFor is Angular's repeater directive. It repeats the host element
+for each element in a list. In this example
+<li> is the host element
+heroes is the list from the HeroesComponent class.
+hero holds the current hero object for each iteration through the list.
+
+Add a click event binding to the <li> (i.e. (click)=...)
+This is an example of Angular's event binding syntax.
+The parentheses around click tell Angular to listen for the <li> element's
+click event. When the user clicks in the <li>, Angular executes the onSelect(hero) expression.
+onSelect() is a HeroesComponent method. Angular calls it with the hero object
+displayed in the clicked <li>. 
+  
+Style the selected hero
+The selected hero coloring is the work of the .selected CSS class in the styles
+you added. Just have to apply the .selected class to the <li> when the user clicks it.
+Angular class binding makes it easy to add and remove a CSS class conditionally. Just
+add [class.some-css-class]="some-condition" to the element you want to style.
+When the current row hero is the same as the selectedHero, Angular adds the selected
+CSS class. When the two are different, Angular removes the class.
+
+Master/Detail Comonents
+HeroesComponent is still a master/detail view.
+It used to display the hero details on its own, but you moved that portion to
+hero-detail.component.html. Now it will delegate to the HeroDetailComponent.
+The two components will have a parent/child relationship. The parent HeroesComponent
+will control the child HeroDetailComponent by sending it a new hero to display
+whenever the user selects a hero from the list.
+
+HeroesComponent hero links
+The hero items in the HeroesComponent are <li> elements whose click events are bound
+to the component's onSelect() method.
+Strip the <li> back to just its *ngFor, wrap the badge and name in an anchor element (<a>),
+and add a routerLink attribute to the anchor that is the same as in the dashboard template.
+Will have to fix the private stylesheet (heroes.component.css) to make the list look as it
+did before.
+
+<h2>My Heroes</h2>
+<ul class="heroes">
+  <li *ngFor="let hero of heroes" [class.selected]="hero === selectedHero" (click)="onSelect(hero)">
+    <span class="badge">{{hero.id}}</span> {{hero.name}}
+  </li>
+</ul>
+
+Add a new hero
+To add a hero, this app only needs the hero's name. You can use an input element
+paired with an add button.
+
+Delete a hero
+To position the delete button at the far right of the hero entry, add some CSS to
+the heroes.component.css.
+-->
+
+<h2>My Heroes</h2>
+
+<div>
+  <label>Hero name:
+    <input #heroName />
+  </label>
+  <!-- (click) passes input value to add() and then clears the input (JoseNote: so
+  its ready for another name.). -->
+  <button (click)="add(heroName.value); heroName.value=''">
+    add
+  </button>
+</div>
+
+<ul class="heroes">
+  <li *ngFor="let hero of heroes">
+    <a routerLink="/detail/{{hero.id}}">
+      <span class="badge">{{hero.id}}</span> {{hero.name}}
+    </a>
+    <button class="delete" title="delete hero"
+      (click)="delete(hero)">x</button>
+  </li>
+</ul>
+
+<!-- Bind the HeroesComponent.selectedHero to the element's hero property
+[hero]="selectedHero" is an Angular propery binding.
+It is a one way data binding from the selectedHero property of the HeroesComponent
+to the hero property of the target element, which maps to the hero property of the
+HeroDetailComponent. Now when the user clicks a hero in the list, the selectedHero
+changes. When the selectedHero changes, the property binding updates hero and the
+HeroDetailComponent displays the new hero. 
+As before, whenever a user clicks on a hero name, the hero detail appears below the hero
+list. Now the HeroDetailComponent is presenting those details instead of the HeroesComponent.
+Refactoring the original HeroesComponent into two components yields benefits, both now
+and in the future:
+You simplified teh HeroesComponent by reducing its responsibilities.
+You can evolve the HeroDetailComponent into a rich hero editor without touching
+the parent HeroesComponent.
+You can evolve the HeroesComponent without touching the hero detail view.
+You can re-use the HeroDetailComponent in the template of some future component.
+
+Delete hero details from HeroesComponent
+When the user clicks a hero item in the HeroesComponent, the app should navigate to the
+HeroDetailComponent, replacing the heroes list view with the hero detail view. The
+heroes list view should no longer show hero details as it does now.
+<app-hero-detail [hero]="selectedHero"></app-hero-detail>
+
+Clicking a hero item now does nothing. Will fix after you enable routing to the HeroDetailComponent.
+-->

@@ -1,0 +1,33 @@
+<!-- To display the HeroesComponent, must add it to the template of the shell AppComponent.
+app-heroes is the element selector for the HeroesComponent, so add an <app-heroes> element.
+ 
+Replace the <app-heroes> element with a <router-outlet> element. You removed <app-heroes>
+because you will only display the HeroesComponent when the user navigates to it. The
+<router-outlet> tells the router where to display routed views.
+THe RouterOutlet is one of the router directives that became available to the AppComponent
+because AppModule imports AppRoutingModule which exported RouterModule.
+
+Add a navigation link (routerLink)
+Users shouldn't have to paste a route URL into the address bar. They should be able to click
+a link to navigate.
+Add a <nav> element and, within that, an anchor element that, when clicked, triggers
+navigation to the HeroesComponent.
+A routerLink attribute is set to "/heroes", the string that the router matches to the
+route to HeroesComponent. The routerLink is the selector for the RouterLink directive
+that turns user clicks into router navigations. Another of the public diretives in the
+RouterModule.
+
+Add dashboard link to the shell
+The user should be able to navigate back and forth between the DashboardComponent
+and the HeroesComponent by clicking links in the navigation area near the top of the page.
+Add a dashboard navigation link to the AppComponent shell template.
+-->
+<h1>{{title}}</h1>
+<nav>
+    <a routerLink="/dashboard">Dashboard</a>
+    <a routerLink="/heroes">Heroes</a>
+</nav>
+<!-- Add RouterOutlet to display routed views. -->
+<router-outlet></router-outlet>
+<!-- To display the generated MessagesComponent -->
+<app-messages></app-messages>

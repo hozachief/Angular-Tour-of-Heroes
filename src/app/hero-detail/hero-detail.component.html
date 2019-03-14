@@ -1,0 +1,60 @@
+<!-- 
+At the moment, the HeroesComponent displays both the list of heroes and the
+selected hero's details. Keeping all features in one component as teh application
+grows will not be maintainable. You want to split up large components into
+smaller sub-components, each focused on a specific task or workflow. We will
+move the hero details into a separate, reusable HeroDetailComponent.
+The HeroesComponent will only present the list of heroes. The HeroDetailComponent
+will present details of a selected hero.  
+The new HeroDetailComponent can present any hero, not just a selected hero. So
+replace "selectedHero" with "hero" everywhere in the template.
+-->
+<!-- Code from line...is cut, modified slightly, and moved here from 
+heroes.component.html -->
+<!-- Hide empty details with *ngIf
+When the app starts, the selectedHero is undefined by design.
+Binding expressions in the template that refer to properties of selectedHero-
+expressions like {{selectedHero.name}} -must fail because there is no selected hero.
+The component should only display the selected hero details if the selectedHero exists.
+Wrap the hero detail HTML in a <div> and add Angular's *ngIf directive to the <div>
+and set it to selectedHero. 
+When selectedHero is undefined, the ngIf removes the hero detail from the DOM. There
+are no selectedHero bindgins to worry about. When the user picks a hero, selectedHero has
+a value and ngIf puts the hero detail into the DOM.-->
+<div *ngIf="hero">
+  <!-- Update the binding in the template to announce the hero's name and
+  show both id and name in a details layout. 
+  Word uppercase in the interpolation binding, right after the pipe operator (|),
+  activates teh built-in UppercasePipe. Pipes are a good way to format strings,
+  currency amounts, data and other display data. -->
+  <h2>{{hero.name | uppercase}} Details</h2>
+  <div><span>id: </span>{{hero.id}}</div>
+  <!-- The textbox should both display the hero's name property and update that property
+  as the user types. Meaning data flow from the component class out to the screen and from
+  the screen back to the class.
+  To automate that data flow, setup a two-way data binding between the <input> form element
+  and the hero.name property. -->
+  <div>
+    <label>name:
+      <!--[(ngModel)] is Angular's two-way binding syntax.
+      Binds the hero.name property to the HTML textbox so that data flow in both directions:
+      from the hero.name property to the textbox, and from the textbox back to the hero.name.
+      ngModel is a valid Angular directive, it isn't available by default. It belongs to the
+      optional FormsModule and you must opt-in to using it.-->
+      <input [(ngModel)]="hero.name" placeholder="name"/>
+    </label>
+  </div>
+  <!--
+  Add a go back button to the bottom of the component template and bind it to the
+  component's goBack() method.
+  -->
+  <button (click)="goBack()">go back</button>
+  <!--
+  Update heroes
+  Edit a hero's name in the hero detail view. As you type, the hero name updates the heading
+  at the top of the page. But when you click the "go back button", the changes are lost.
+  If you want changes to persist, you must write them back to the server.
+  Add a save button with a click event binding that invokes a new component method named save().
+  -->
+  <button (click)="save()">save</button>
+</div>
